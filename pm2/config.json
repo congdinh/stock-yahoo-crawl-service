@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "exec_mode": "fork_mode",
+      "name": "[Stock] yahoo service",
+      "script": "npm",
+      "args": "run start",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

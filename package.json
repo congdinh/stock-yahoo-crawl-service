@@ -1,0 +1,45 @@
+{
+  "name": "stock-yahoo-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "precommit": "pretty-quick --staged",
+    "pretest": "eslint src",
+    "build": "NODE_ENV=production rimraf dist/ && babel src --out-dir dist/",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "start": "node dist/index.js"
+  },
+  "author": "thai.luu@kompa.ai",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^2.1.0",
+    "dateformat": "^3.0.3",
+    "dotenv": "^6.1.0",
+    "graphql": "^14.0.2",
+    "momentjs": "^2.0.0",
+    "node-fetch": "^2.3.0",
+    "yahoo-finance": "^0.3.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-async-to-generator": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/runtime": "^7.1.2",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "husky": "^1.3.1",
+    "nodemon": "^1.18.5",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0"
+  }
+}
