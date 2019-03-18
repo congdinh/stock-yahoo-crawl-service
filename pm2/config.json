@@ -5,7 +5,8 @@
       "name": "[Stock] yahoo service",
       "script": "npm",
       "args": "run start",
-      "env": {
+      "env": {},
+      "env_production": {
         "NODE_ENV": "production"
       }
     },
