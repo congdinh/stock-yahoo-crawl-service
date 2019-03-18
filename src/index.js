@@ -1,4 +1,6 @@
 import { ApolloServer } from "apollo-server";
+import logger from "./external-libs/winston";
+import { connect as connectMongoDB } from "./external-libs/mongoose";
 import typeDefs from "./graphql/typeDef";
 import resolvers from "./graphql/resolver";
 
@@ -15,8 +17,18 @@ async function start() {
   const port = parseInt(process.env.PORT || process.env.SERVER_PORT, 10);
 
   server.listen(port).then(({ url }) => {
-    console.log(`🚀  Server ready at ${url}`);
+    logger.info(`🚀  Server ready at ${url}`);
   });
 }
 
-start();
+connectMongoDB()
+  .then(() => {
+    const host = process.env.MONGO_DEFAULT_HOST;
+    const port = process.env.MONGO_DEFAULT_PORT;
+    const dbName = process.env.MONGO_DEFAULT_DB_NAME;
+    logger.info(`Mongo|Started mongodb://${host}:${port}/${dbName}`);
+    start();
+  })
+  .catch(error => {
+    logger.error(error);
+  });

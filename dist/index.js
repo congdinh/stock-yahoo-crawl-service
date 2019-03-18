@@ -8,6 +8,10 @@ var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/
 
 var _apolloServer = require("apollo-server");
 
+var _winston = _interopRequireDefault(require("./external-libs/winston"));
+
+var _mongoose = require("./external-libs/mongoose");
+
 var _typeDef = _interopRequireDefault(require("./graphql/typeDef"));
 
 var _resolver = _interopRequireDefault(require("./graphql/resolver"));
@@ -39,7 +43,8 @@ function _start() {
             port = parseInt(process.env.PORT || process.env.SERVER_PORT, 10);
             server.listen(port).then(function (_ref) {
               var url = _ref.url;
-              console.log("\uD83D\uDE80  Server ready at ".concat(url));
+
+              _winston.default.info("\uD83D\uDE80  Server ready at ".concat(url));
             });
 
           case 3:
@@ -52,4 +57,14 @@ function _start() {
   return _start.apply(this, arguments);
 }
 
-start();
+(0, _mongoose.connect)().then(function () {
+  var host = process.env.MONGO_DEFAULT_HOST;
+  var port = process.env.MONGO_DEFAULT_PORT;
+  var dbName = process.env.MONGO_DEFAULT_DB_NAME;
+
+  _winston.default.info("Mongo|Started mongodb://".concat(host, ":").concat(port, "/").concat(dbName));
+
+  start();
+}).catch(function (error) {
+  _winston.default.error(error);
+});

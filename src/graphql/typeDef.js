@@ -16,11 +16,13 @@ export default gql`
     close: Float
     volume: Float
     adjClose: Float
-    time: String
+    date: String
+    ticker: String
+    name: String
   }
 
   type StockExchange {
-    symbol: String
+    ticker: String
     histories: [StockExchangeHistory]
   }
 
@@ -28,12 +30,11 @@ export default gql`
   # (A "Mutation" type will be covered later on.)
   type Query {
     stockHistorical(
-      symbol: String
+      ticker: String
       from: String
       to: String
-      period: String
+      type: String
+      exchange: Boolean
     ): StockExchange
-    stockExchangeIntraday(symbol: String, interval: String): StockExchange
-    stockExchangeExtraday(symbol: String, type: String): StockExchange
   }
 `;

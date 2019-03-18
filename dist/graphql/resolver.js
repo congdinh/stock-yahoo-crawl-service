@@ -17,12 +17,6 @@ var _default = {
   Query: {
     stockHistorical: function stockHistorical(_, args) {
       return (0, _service.getStockHistorical)((0, _objectSpread2.default)({}, args));
-    },
-    stockExchangeIntraday: function stockExchangeIntraday(_, args) {
-      return (0, _service.getStockExchangeIntraday)((0, _objectSpread2.default)({}, args));
-    },
-    stockExchangeExtraday: function stockExchangeExtraday(_, args) {
-      return (0, _service.getStockExchangeExtraday)((0, _objectSpread2.default)({}, args));
     }
   }
 };
