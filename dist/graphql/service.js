@@ -33,8 +33,8 @@ function () {
               type: type,
               exchange: exchange,
               date: {
-                $gte: (0, _moment.default)(from),
-                $lte: (0, _moment.default)(to)
+                $gte: from ? (0, _moment.default)(from) : (0, _moment.default)().startOf("day"),
+                $lte: to ? (0, _moment.default)(to) : (0, _moment.default)().endOf("day")
               }
             };
             _context.next = 4;

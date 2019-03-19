@@ -30,15 +30,47 @@ export default gql`
   # (A "Mutation" type will be covered later on.)
   type Query {
     stockHistorical(
-      ticker: String
+      """
+      Symbol of stock/exchange
+      """
+      ticker: String!
+      """
+      From date default today
+
+      daily: YYYY-MM-DD
+
+      intraday: YYYY-MM-DD HH:mm:ss
+      """
       from: String
+      """
+      To date default today
+
+      daily: YYYY-MM-DD
+
+      intraday: YYYY-MM-DD HH:mm:ss
+      """
       to: String
+      """
+      Intraday or daily(default)
+      """
       type: String
+      """
+      Boolean: true(default)
+      """
       exchange: Boolean
     ): StockExchange
     stockHistoryLatest(
-      ticker: String
+      """
+      Symbol of stock/exchange
+      """
+      ticker: String!
+      """
+      Intraday or daily(default)
+      """
       type: String
+      """
+      Boolean: true(default)
+      """
       exchange: Boolean
     ): StockExchangeHistory
   }

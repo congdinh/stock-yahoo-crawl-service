@@ -12,7 +12,10 @@ export const getStockHistorical = async ({
     ticker,
     type,
     exchange,
-    date: { $gte: moment(from), $lte: moment(to) }
+    date: {
+      $gte: from ? moment(from) : moment().startOf("day"),
+      $lte: to ? moment(to) : moment().endOf("day")
+    }
   };
   const histories = await Historical.find(query)
     .sort({ date: -1 })
