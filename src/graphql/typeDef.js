@@ -36,5 +36,10 @@ export default gql`
       type: String
       exchange: Boolean
     ): StockExchange
+    stockHistoryLatest(
+      ticker: String
+      type: String
+      exchange: Boolean
+    ): StockExchangeHistory
   }
 `;

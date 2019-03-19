@@ -17,6 +17,9 @@ var _default = {
   Query: {
     stockHistorical: function stockHistorical(_, args) {
       return (0, _service.getStockHistorical)((0, _objectSpread2.default)({}, args));
+    },
+    stockHistoryLatest: function stockHistoryLatest(_, args) {
+      return (0, _service.getHistoryLatest)((0, _objectSpread2.default)({}, args));
     }
   }
 };

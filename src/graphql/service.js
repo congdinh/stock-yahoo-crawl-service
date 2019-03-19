@@ -24,3 +24,20 @@ export const getStockHistorical = async ({
     histories
   };
 };
+
+export const getHistoryLatest = async ({
+  ticker,
+  type = "daily",
+  exchange = true
+}) => {
+  const query = {
+    ticker,
+    type,
+    exchange
+  };
+  const histories = await Historical.findOne(query)
+    .sort({ date: -1 })
+    .lean()
+    .exec();
+  return histories;
+};
