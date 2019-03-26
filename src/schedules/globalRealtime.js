@@ -24,7 +24,7 @@ const job = async () => {
     });
 
     await Promise.all(dataUpdate).then(res => {
-      logger.info("Global Realtime: ", res.length);
+      logger.info("Global Realtime: " + res.length);
       return true;
     });
 

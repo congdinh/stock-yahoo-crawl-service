@@ -77,7 +77,7 @@ function () {
             });
             _context2.next = 11;
             return Promise.all(dataDailyUpdate).then(function (res) {
-              _winston.default.info("Exchange Daily: ", res.length);
+              _winston.default.info("Exchange Daily: " + res.length);
 
               return true;
             });
@@ -117,7 +117,7 @@ function () {
                         });
                         _context.next = 6;
                         return Promise.all(dataIntradayUpdate).then(function (res) {
-                          _winston.default.info("Exchange Intraday: ", res.length);
+                          _winston.default.info("Exchange Intraday: " + res.length);
 
                           return true;
                         });

@@ -56,7 +56,7 @@ function () {
             });
             _context.next = 11;
             return Promise.all(dataUpdate).then(function (res) {
-              _winston.default.info("Global Realtime: ", res.length);
+              _winston.default.info("Global Realtime: " + res.length);
 
               return true;
             });
