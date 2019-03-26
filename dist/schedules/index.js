@@ -4,6 +4,8 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
+var _objectSpread2 = _interopRequireDefault(require("@babel/runtime/helpers/objectSpread"));
+
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
 
 var _nodeSchedule = _interopRequireDefault(require("node-schedule"));
@@ -40,7 +42,7 @@ function () {
   var _ref = (0, _asyncToGenerator2.default)(
   /*#__PURE__*/
   _regenerator.default.mark(function _callee2() {
-    var exchanges, dataExchange, filterData;
+    var exchanges, dataExchange, dataDailyUpdate;
     return _regenerator.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -63,16 +65,24 @@ function () {
 
           case 7:
             dataExchange = _context2.sent;
-            filterData = dataExchange.filter(function (item) {
-              return (0, _moment.default)(item.date).format("YYYY-MM-DD") === (0, _moment.default)().format("YYYY-MM-DD");
+            dataDailyUpdate = dataExchange.map(function (item) {
+              return _models.Historical.updateMany({
+                ticker: item.ticker,
+                date: item.date,
+                type: "daily",
+                exchange: true
+              }, (0, _objectSpread2.default)({}, item), {
+                upsert: true
+              });
             });
             _context2.next = 11;
-            return _models.Historical.insertMany(filterData, {
-              ordered: false
+            return Promise.all(dataDailyUpdate).then(function (res) {
+              console.log("Exchange Daily: ", res.length);
+              return true;
             });
 
           case 11:
-            _winston.default.info("inserted Exchange Extraday: " + exchanges);
+            _winston.default.info("Updated Exchange Daily: " + exchanges);
 
             _context2.next = 14;
             return exchanges.forEach(
@@ -81,7 +91,7 @@ function () {
               var _ref2 = (0, _asyncToGenerator2.default)(
               /*#__PURE__*/
               _regenerator.default.mark(function _callee(symbol) {
-                var dataExchangeIntraday, filterDataIntraday;
+                var dataExchangeIntraday, dataIntradayUpdate;
                 return _regenerator.default.wrap(function _callee$(_context) {
                   while (1) {
                     switch (_context.prev = _context.next) {
@@ -94,16 +104,24 @@ function () {
 
                       case 2:
                         dataExchangeIntraday = _context.sent;
-                        filterDataIntraday = dataExchangeIntraday.filter(function (item) {
-                          return (0, _moment.default)(item.date).format("YYYY-MM-DD") === (0, _moment.default)().format("YYYY-MM-DD");
+                        dataIntradayUpdate = dataExchangeIntraday.map(function (item) {
+                          return _models.Historical.updateMany({
+                            ticker: item.ticker,
+                            date: item.date,
+                            type: "intraday",
+                            exchange: true
+                          }, (0, _objectSpread2.default)({}, item), {
+                            upsert: true
+                          });
                         });
                         _context.next = 6;
-                        return _models.Historical.insertMany(filterDataIntraday, {
-                          ordered: false
+                        return Promise.all(dataIntradayUpdate).then(function (res) {
+                          console.log("Exchange Intraday: ", res.length);
+                          return true;
                         });
 
                       case 6:
-                        _winston.default.info("inserted Exchange Intraday : ".concat(symbol, " ").concat(filterDataIntraday.length));
+                        _winston.default.info("Updated Exchange Intraday : ".concat(symbol, " ").concat(dataIntradayUpdate.length));
 
                         _context.next = 9;
                         return _sleep.default.sleep(60);
@@ -122,7 +140,7 @@ function () {
             }());
 
           case 14:
-            _winston.default.warn("Fetch all data stock");
+            _winston.default.warn("Fetch all data exchanges");
 
             return _context2.abrupt("return");
 

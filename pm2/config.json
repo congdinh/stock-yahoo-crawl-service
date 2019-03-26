@@ -15,7 +15,7 @@
       "name": "[Schedule] fetch data yahoo",
       "script": "npm",
       "args": "run schedule",
-      "cron_restart": "0 */2 * * *",
+      "cron_restart": "0 */1 * * *",
       "env": {
         "NODE_ENV": "production"
       }

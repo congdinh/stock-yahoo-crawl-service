@@ -37,14 +37,21 @@ const job = async () => {
         .add(1, "days")
         .format("YYYY-MM-DD")
     });
-    const filterData = dataExchange.filter(
-      item =>
-        moment(item.date).format("YYYY-MM-DD") === moment().format("YYYY-MM-DD")
-    );
-    await Historical.insertMany(filterData, {
-      ordered: false
+
+    const dataDailyUpdate = dataExchange.map(item => {
+      return Historical.updateMany(
+        { ticker: item.ticker, date: item.date, type: "daily", exchange: true },
+        { ...item },
+        { upsert: true }
+      );
     });
-    logger.info("inserted Exchange Extraday: " + exchanges);
+
+    await Promise.all(dataDailyUpdate).then(res => {
+      console.log("Exchange Daily: ", res.length);
+      return true;
+    });
+
+    logger.info("Updated Exchange Daily: " + exchanges);
 
     await exchanges.forEach(async symbol => {
       //     // Get data daily of exchange
@@ -62,21 +69,30 @@ const job = async () => {
         interval: "5min"
       });
 
-      const filterDataIntraday = dataExchangeIntraday.filter(
-        item =>
-          moment(item.date).format("YYYY-MM-DD") ===
-          moment().format("YYYY-MM-DD")
-      );
-      await Historical.insertMany(filterDataIntraday, {
-        ordered: false
+      const dataIntradayUpdate = dataExchangeIntraday.map(item => {
+        return Historical.updateMany(
+          {
+            ticker: item.ticker,
+            date: item.date,
+            type: "intraday",
+            exchange: true
+          },
+          { ...item },
+          { upsert: true }
+        );
+      });
+
+      await Promise.all(dataIntradayUpdate).then(res => {
+        console.log("Exchange Intraday: ", res.length);
+        return true;
       });
       logger.info(
-        `inserted Exchange Intraday : ${symbol} ${filterDataIntraday.length}`
+        `Updated Exchange Intraday : ${symbol} ${dataIntradayUpdate.length}`
       );
       await sleep.sleep(60);
     });
 
-    logger.warn("Fetch all data stock");
+    logger.warn("Fetch all data exchanges");
     return;
   } catch (err) {
     logger.error(err);
