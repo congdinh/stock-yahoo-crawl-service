@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getHistoryLatest = exports.getStockHistorical = void 0;
+exports.getGlobalRealtime = exports.getHistoryLatest = exports.getStockHistorical = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -105,3 +105,46 @@ function () {
 }();
 
 exports.getHistoryLatest = getHistoryLatest;
+
+var getGlobalRealtime =
+/*#__PURE__*/
+function () {
+  var _ref5 = (0, _asyncToGenerator2.default)(
+  /*#__PURE__*/
+  _regenerator.default.mark(function _callee3(_ref6) {
+    var symbols, listQuery, data;
+    return _regenerator.default.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            symbols = _ref6.symbols;
+            listQuery = symbols.map(function (item) {
+              return _models.Global.findOne({
+                symbol: item
+              }).sort({
+                updateAt: -1
+              });
+            });
+            _context3.next = 4;
+            return Promise.all(listQuery);
+
+          case 4:
+            data = _context3.sent;
+            return _context3.abrupt("return", {
+              data: data
+            });
+
+          case 6:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, this);
+  }));
+
+  return function getGlobalRealtime(_x3) {
+    return _ref5.apply(this, arguments);
+  };
+}();
+
+exports.getGlobalRealtime = getGlobalRealtime;

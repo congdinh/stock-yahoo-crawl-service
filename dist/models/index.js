@@ -11,5 +11,13 @@ Object.defineProperty(exports, "Historical", {
     return _historical.default;
   }
 });
+Object.defineProperty(exports, "Global", {
+  enumerable: true,
+  get: function get() {
+    return _global.default;
+  }
+});
 
 var _historical = _interopRequireDefault(require("./historical"));
+
+var _global = _interopRequireDefault(require("./global"));

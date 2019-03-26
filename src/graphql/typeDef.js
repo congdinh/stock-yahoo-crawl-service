@@ -26,6 +26,33 @@ export default gql`
     histories: [StockExchangeHistory]
   }
 
+  type GlobalRealtime {
+    symbol: String
+    marketTime: Int
+    updateAt: String
+    exchangeTimezoneName: String
+    tradeable: Boolean
+    regularMarketTime: GlobalRaw
+    fiftyTwoWeekLow: GlobalRaw
+    regularMarketPreviousClose: GlobalRaw
+    regularMarketOpen: GlobalRaw
+    regularMarketVolume: GlobalRaw
+    averageDailyVolume3Month: GlobalRaw
+    regularMarketPrice: GlobalRaw
+    regularMarketChange: GlobalRaw
+    regularMarketChangePercent: GlobalRaw
+  }
+
+  type GlobalRaw {
+    raw: String
+    fmt: String
+    longFmt: String
+  }
+
+  type StockGlobalRealtime {
+    data: [GlobalRealtime]
+  }
+
   # The "Query" type is the root of all GraphQL queries.
   # (A "Mutation" type will be covered later on.)
   type Query {
@@ -73,5 +100,6 @@ export default gql`
       """
       exchange: Boolean
     ): StockExchangeHistory
+    stockGlobalRealtime(symbols: [String!]): StockGlobalRealtime
   }
 `;

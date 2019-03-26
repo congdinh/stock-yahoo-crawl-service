@@ -13,3 +13,19 @@ export const YAHOO_LIST_EXCHANGE = {
   "^IXIC": "Nasdaq Composite",
   "^NDX": "Nasdaq 100"
 };
+
+export const YAHOO_GLOBAL_FIELDS = [
+  "symbol",
+  "tradeable",
+  "fullExchangeName",
+  "exchangeTimezoneName",
+  "regularMarketTime",
+  "fiftyTwoWeekLow",
+  "regularMarketPreviousClose",
+  "regularMarketOpen",
+  "regularMarketVolume",
+  "averageDailyVolume3Month",
+  "regularMarketPrice",
+  "regularMarketChange",
+  "regularMarketChangePercent"
+];

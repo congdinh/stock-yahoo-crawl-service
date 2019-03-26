@@ -1,12 +1,19 @@
 import yahooFinance from "yahoo-finance";
 import fetch from "node-fetch";
 import moment from "moment-timezone";
-import { TIME_SERIES_TYPE, YAHOO_LIST_EXCHANGE } from "./constant";
+import pick from "lodash.pick";
+import {
+  TIME_SERIES_TYPE,
+  YAHOO_LIST_EXCHANGE,
+  YAHOO_GLOBAL_FIELDS
+} from "./constant";
 require("dotenv").config();
 
 const {
   YAHOO_STOCK_ENDPOINT: yahooEndpoint,
-  YAHOO_STOCK_KEY: yahooKey
+  YAHOO_STOCK_KEY: yahooKey,
+  YAHOO_GLOBAL_ENDPOINT: yahooGlobalEndpoint,
+  YAHOO_GLOBAL_CORS_DOMAIN: yahooGlobalCors
 } = process.env;
 
 export const getStockHistorical = async ({
@@ -139,4 +146,31 @@ export const getStockExchangeExtraday = async ({
     };
   });
   return histories;
+};
+
+export const getStockGlobalRealtime = async ({ symbols }) => {
+  const dataFetch = await fetch(
+    `${yahooGlobalEndpoint}?&symbols=${symbols}&corsDomain=${yahooGlobalCors}`,
+    {
+      method: "GET",
+      headers: {
+        Accept: "application/json"
+      }
+    }
+  );
+  const stock = await dataFetch.json();
+  const dataSeries = stock["quoteResponse"]["result"];
+  const result = dataSeries.map(obj => {
+    const newData = pick(obj, [...YAHOO_GLOBAL_FIELDS]);
+    const marketTime = newData["regularMarketTime"].raw;
+    const updateAt = moment(new Date(marketTime * 1000))
+      .tz(newData["exchangeTimezoneName"])
+      .format("YYYY-MM-DDTHH:mm:ss");
+    return {
+      ...newData,
+      marketTime,
+      updateAt
+    };
+  });
+  return result;
 };

@@ -9,16 +9,6 @@
       "env_production": {
         "NODE_ENV": "production"
       }
-    },
-    {
-      "exec_mode": "fork_mode",
-      "name": "[Schedule] fetch data yahoo",
-      "script": "npm",
-      "args": "run schedule",
-      "cron_restart": "0 */1 * * *",
-      "env": {
-        "NODE_ENV": "production"
-      }
     }
   ]
 }

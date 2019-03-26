@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.YAHOO_LIST_EXCHANGE = exports.TIME_SERIES_TYPE = void 0;
+exports.YAHOO_GLOBAL_FIELDS = exports.YAHOO_LIST_EXCHANGE = exports.TIME_SERIES_TYPE = void 0;
 var TIME_SERIES_TYPE = {
   intraday: {
     key: "TIME_SERIES_INTRADAY",
@@ -32,3 +32,5 @@ var YAHOO_LIST_EXCHANGE = {
   "^NDX": "Nasdaq 100"
 };
 exports.YAHOO_LIST_EXCHANGE = YAHOO_LIST_EXCHANGE;
+var YAHOO_GLOBAL_FIELDS = ["symbol", "tradeable", "fullExchangeName", "exchangeTimezoneName", "regularMarketTime", "fiftyTwoWeekLow", "regularMarketPreviousClose", "regularMarketOpen", "regularMarketVolume", "averageDailyVolume3Month", "regularMarketPrice", "regularMarketChange", "regularMarketChangePercent"];
+exports.YAHOO_GLOBAL_FIELDS = YAHOO_GLOBAL_FIELDS;

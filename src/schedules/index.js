@@ -47,7 +47,7 @@ const job = async () => {
     });
 
     await Promise.all(dataDailyUpdate).then(res => {
-      console.log("Exchange Daily: ", res.length);
+      logger.info("Exchange Daily: ", res.length);
       return true;
     });
 
@@ -83,7 +83,7 @@ const job = async () => {
       });
 
       await Promise.all(dataIntradayUpdate).then(res => {
-        console.log("Exchange Intraday: ", res.length);
+        logger.info("Exchange Intraday: ", res.length);
         return true;
       });
       logger.info(

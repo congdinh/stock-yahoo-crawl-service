@@ -5,7 +5,9 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getStockExchangeExtraday = exports.getStockExchangeIntraday = exports.getListExchangeHistorical = exports.getStockHistorical = void 0;
+exports.getStockGlobalRealtime = exports.getStockExchangeExtraday = exports.getStockExchangeIntraday = exports.getListExchangeHistorical = exports.getStockHistorical = void 0;
+
+var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -21,13 +23,17 @@ var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
 var _momentTimezone = _interopRequireDefault(require("moment-timezone"));
 
+var _lodash = _interopRequireDefault(require("lodash.pick"));
+
 var _constant = require("./constant");
 
 require("dotenv").config();
 
 var _process$env = process.env,
     yahooEndpoint = _process$env.YAHOO_STOCK_ENDPOINT,
-    yahooKey = _process$env.YAHOO_STOCK_KEY;
+    yahooKey = _process$env.YAHOO_STOCK_KEY,
+    yahooGlobalEndpoint = _process$env.YAHOO_GLOBAL_ENDPOINT,
+    yahooGlobalCors = _process$env.YAHOO_GLOBAL_CORS_DOMAIN;
 
 var getStockHistorical =
 /*#__PURE__*/
@@ -255,3 +261,57 @@ function () {
 }();
 
 exports.getStockExchangeExtraday = getStockExchangeExtraday;
+
+var getStockGlobalRealtime =
+/*#__PURE__*/
+function () {
+  var _ref9 = (0, _asyncToGenerator2.default)(
+  /*#__PURE__*/
+  _regenerator.default.mark(function _callee5(_ref10) {
+    var symbols, dataFetch, stock, dataSeries, result;
+    return _regenerator.default.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            symbols = _ref10.symbols;
+            _context5.next = 3;
+            return (0, _nodeFetch.default)("".concat(yahooGlobalEndpoint, "?&symbols=").concat(symbols, "&corsDomain=").concat(yahooGlobalCors), {
+              method: "GET",
+              headers: {
+                Accept: "application/json"
+              }
+            });
+
+          case 3:
+            dataFetch = _context5.sent;
+            _context5.next = 6;
+            return dataFetch.json();
+
+          case 6:
+            stock = _context5.sent;
+            dataSeries = stock["quoteResponse"]["result"];
+            result = dataSeries.map(function (obj) {
+              var newData = (0, _lodash.default)(obj, (0, _toConsumableArray2.default)(_constant.YAHOO_GLOBAL_FIELDS));
+              var marketTime = newData["regularMarketTime"].raw;
+              var updateAt = (0, _momentTimezone.default)(new Date(marketTime * 1000)).tz(newData["exchangeTimezoneName"]).format("YYYY-MM-DDTHH:mm:ss");
+              return (0, _objectSpread2.default)({}, newData, {
+                marketTime: marketTime,
+                updateAt: updateAt
+              });
+            });
+            return _context5.abrupt("return", result);
+
+          case 10:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5, this);
+  }));
+
+  return function getStockGlobalRealtime(_x5) {
+    return _ref9.apply(this, arguments);
+  };
+}();
+
+exports.getStockGlobalRealtime = getStockGlobalRealtime;

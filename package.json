@@ -9,7 +9,9 @@
     "build": "NODE_ENV=production rimraf dist/ && babel src --out-dir dist/",
     "dev": "nodemon --exec babel-node src/index.js",
     "dev:schedule": "nodemon --exec babel-node src/schedules/index.js",
+    "dev:global": "nodemon --exec babel-node src/schedules/globalRealtime.js",
     "schedule": "node dist/schedules/index.js",
+    "schedule:global": "node dist/schedules/globalRealtime.js",
     "start": "node dist/index.js"
   },
   "author": "thai.luu@kompa.ai",
@@ -19,6 +21,7 @@
     "dateformat": "^3.0.3",
     "dotenv": "^6.1.0",
     "graphql": "^14.0.2",
+    "lodash.pick": "^4.4.0",
     "moment-timezone": "^0.5.23",
     "momentjs": "^2.0.0",
     "mongoose": "^5.4.19",

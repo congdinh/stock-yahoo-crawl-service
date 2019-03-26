@@ -20,6 +20,9 @@ var _default = {
     },
     stockHistoryLatest: function stockHistoryLatest(_, args) {
       return (0, _service.getHistoryLatest)((0, _objectSpread2.default)({}, args));
+    },
+    stockGlobalRealtime: function stockGlobalRealtime(_, args) {
+      return (0, _service.getGlobalRealtime)((0, _objectSpread2.default)({}, args));
     }
   }
 };

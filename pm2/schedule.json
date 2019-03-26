@@ -1,0 +1,24 @@
+{
+  "apps": [
+    {
+      "exec_mode": "fork_mode",
+      "name": "[Schedule] Fetch data yahoo",
+      "script": "npm",
+      "args": "run schedule",
+      "cron_restart": "0 */1 * * *",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    {
+      "exec_mode": "fork_mode",
+      "name": "[Schedule] Fetch global realtime",
+      "script": "npm",
+      "args": "run schedule:global",
+      "cron_restart": "*/5 * * * *",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  ]
+}

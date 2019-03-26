@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Historical } from "../models";
+import { Historical, Global } from "../models";
 
 export const getStockHistorical = async ({
   ticker,
@@ -43,4 +43,13 @@ export const getHistoryLatest = async ({
     .lean()
     .exec();
   return histories;
+};
+
+export const getGlobalRealtime = async ({ symbols }) => {
+  const listQuery = symbols.map(item => {
+    return Global.findOne({ symbol: item }).sort({ updateAt: -1 });
+  });
+
+  const data = await Promise.all(listQuery);
+  return { data };
 };
