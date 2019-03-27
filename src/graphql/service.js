@@ -51,5 +51,6 @@ export const getGlobalRealtime = async ({ symbols }) => {
   });
 
   const data = await Promise.all(listQuery);
-  return { data };
+  const result = data.filter(i => i);
+  return { data: result };
 };

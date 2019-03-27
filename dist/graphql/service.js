@@ -112,7 +112,7 @@ function () {
   var _ref5 = (0, _asyncToGenerator2.default)(
   /*#__PURE__*/
   _regenerator.default.mark(function _callee3(_ref6) {
-    var symbols, listQuery, data;
+    var symbols, listQuery, data, result;
     return _regenerator.default.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -130,11 +130,14 @@ function () {
 
           case 4:
             data = _context3.sent;
+            result = data.filter(function (i) {
+              return i;
+            });
             return _context3.abrupt("return", {
-              data: data
+              data: result
             });
 
-          case 6:
+          case 7:
           case "end":
             return _context3.stop();
         }
