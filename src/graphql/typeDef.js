@@ -34,6 +34,8 @@ export default gql`
     tradeable: Boolean
     regularMarketTime: GlobalRaw
     fiftyTwoWeekLow: GlobalRaw
+    fiftyTwoWeekRange: GlobalRaw
+    regularMarketDayRange: GlobalRaw
     regularMarketPreviousClose: GlobalRaw
     regularMarketOpen: GlobalRaw
     regularMarketVolume: GlobalRaw

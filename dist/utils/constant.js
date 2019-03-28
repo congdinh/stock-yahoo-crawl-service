@@ -32,5 +32,5 @@ var YAHOO_LIST_EXCHANGE = {
   "^NDX": "Nasdaq 100"
 };
 exports.YAHOO_LIST_EXCHANGE = YAHOO_LIST_EXCHANGE;
-var YAHOO_GLOBAL_FIELDS = ["symbol", "tradeable", "fullExchangeName", "exchangeTimezoneName", "regularMarketTime", "fiftyTwoWeekLow", "regularMarketPreviousClose", "regularMarketOpen", "regularMarketVolume", "averageDailyVolume3Month", "regularMarketPrice", "regularMarketChange", "regularMarketChangePercent"];
+var YAHOO_GLOBAL_FIELDS = ["symbol", "tradeable", "fullExchangeName", "exchangeTimezoneName", "regularMarketTime", "fiftyTwoWeekLow", "fiftyTwoWeekRange", "regularMarketDayRange", "regularMarketPreviousClose", "regularMarketOpen", "regularMarketVolume", "averageDailyVolume3Month", "regularMarketPrice", "regularMarketChange", "regularMarketChangePercent"];
 exports.YAHOO_GLOBAL_FIELDS = YAHOO_GLOBAL_FIELDS;

@@ -28,6 +28,16 @@ var GlobalSchema = new _mongoose.default.Schema({
     fmt: String,
     longFmt: String
   },
+  fiftyTwoWeekRange: {
+    raw: String,
+    fmt: String,
+    longFmt: String
+  },
+  regularMarketDayRange: {
+    raw: String,
+    fmt: String,
+    longFmt: String
+  },
   regularMarketPreviousClose: {
     raw: Number,
     fmt: String,

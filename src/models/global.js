@@ -20,6 +20,16 @@ const GlobalSchema = new mongoose.Schema(
       fmt: String,
       longFmt: String
     },
+    fiftyTwoWeekRange: {
+      raw: String,
+      fmt: String,
+      longFmt: String
+    },
+    regularMarketDayRange: {
+      raw: String,
+      fmt: String,
+      longFmt: String
+    },
     regularMarketPreviousClose: {
       raw: Number,
       fmt: String,
