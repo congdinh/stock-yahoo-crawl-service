@@ -6,6 +6,7 @@ const GlobalSchema = new mongoose.Schema(
     marketTime: Number,
     exchangeTimezoneName: String,
     tradeable: Boolean,
+    marketState: String,
     updateAt: {
       type: Date,
       default: Date.now

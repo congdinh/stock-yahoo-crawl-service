@@ -30,6 +30,7 @@ export default gql`
     symbol: String
     marketTime: Int
     updateAt: String
+    marketState: String
     exchangeTimezoneName: String
     tradeable: Boolean
     regularMarketTime: GlobalRaw

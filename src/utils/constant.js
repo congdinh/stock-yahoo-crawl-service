@@ -20,6 +20,7 @@ export const YAHOO_GLOBAL_FIELDS = [
   "fullExchangeName",
   "exchangeTimezoneName",
   "regularMarketTime",
+  "marketState",
   "fiftyTwoWeekLow",
   "fiftyTwoWeekRange",
   "regularMarketDayRange",

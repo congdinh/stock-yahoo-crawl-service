@@ -14,6 +14,7 @@ var GlobalSchema = new _mongoose.default.Schema({
   marketTime: Number,
   exchangeTimezoneName: String,
   tradeable: Boolean,
+  marketState: String,
   updateAt: {
     type: Date,
     default: Date.now
