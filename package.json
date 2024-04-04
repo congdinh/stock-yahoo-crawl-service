@@ -14,7 +14,7 @@
     "schedule:global": "node dist/schedules/globalRealtime.js",
     "start": "node dist/index.js"
   },
-  "author": "thai.luu@kompa.ai",
+  "author": "dev",
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^2.1.0",
