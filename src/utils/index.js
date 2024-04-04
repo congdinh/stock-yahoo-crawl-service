@@ -90,7 +90,10 @@ export const getStockExchangeIntraday = async ({
     }
   );
   const stock = await dataFetch.json();
-  const dataZone = stock["Meta Data"]["6. Time Zone"];
+  console.log("stock: ", stock);
+  if (Object.entries(stock).length === 0) return [];
+  const dataZone =
+    (stock && stock["Meta Data"] && stock["Meta Data"]["6. Time Zone"]) || "";
   const dataSeries = stock[`Time Series (${interval})`];
   const histories = Object.keys(dataSeries).map(key => {
     const date = key;
@@ -118,9 +121,7 @@ export const getStockExchangeExtraday = async ({
   size = "compact"
 }) => {
   const dataFetch = await fetch(
-    `${yahooEndpoint}?function=${
-      TIME_SERIES_TYPE[type].key
-    }&symbol=${symbol}&outputsize=${size}}&apikey=${yahooKey}`,
+    `${yahooEndpoint}?function=${TIME_SERIES_TYPE[type].key}&symbol=${symbol}&outputsize=${size}}&apikey=${yahooKey}`,
     {
       method: "GET",
       headers: {
